@@ -28,16 +28,16 @@ To run this script successfully, the server must have the following tools instal
 
 The script interacts with several files on the host system to function. It is categorized into files it reads, files it modifies, and files it creates.
 
-### 1. Files Read
+### Files Read
 * `/etc/systemd/network/90-wg0.netdev`: Reads the server's `PrivateKey` to calculate the public key. Also scans this file to determine which IP addresses are already assigned to existing peers.
 * `/etc/systemd/network/90-wg0.network`: Scans for existing `[Route]` blocks to dynamically build the `AllowedIPs` list for Site-to-Site routing. It also checks this file for `IPForward=yes` and `IPMasquerade=` to warn you if Full Tunnel routing might fail.
 
-### 2. Files Modified (Appended)
+### Files Modified (Appended)
 * `/etc/systemd/network/90-wg0.netdev`: Appends a new `[WireGuardPeer]` block containing the new client's public key, PSK, and allowed IPs.
 * `/etc/systemd/network/90-wg0.network`: (If applicable) Appends new `[Route]` blocks if the new client specifies that it has local subnets hidden behind it.
 * `/etc/hosts`: Appends the new client's IPv4, IPv6, FQDN (e.g., `clientname.wg.banse.biz`), and hostname for easy local DNS resolution.
 
-### 3. Files Created (Outputs)
+### Files Created (Outputs)
 By default, the script creates a directory called `./wg-config` (unless a path is passed as the first argument, e.g., `./add-wg-client.sh /custom/path`). Depending on the output format selected during execution, it will create one of the following inside that directory:
 
 * **Standard Config:** `<OUT_DIR>/<client_name>.conf`
