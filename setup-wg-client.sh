@@ -24,8 +24,8 @@ mv "$TARGET_DIR/90-wg0.netdev" /etc/systemd/network/
 mv "$TARGET_DIR/90-wg0.network" /etc/systemd/network/
 
 # Set correct ownership and permissions
-chown systemd-network:systemd-network /etc/systemd/network/90-wg0.netdev
-chown systemd-network:systemd-network /etc/systemd/network/90-wg0.network
+chown root:systemd-network /etc/systemd/network/90-wg0.netdev
+chown root:systemd-network /etc/systemd/network/90-wg0.network
 
 # Secure the netdev file (contains the WireGuard private key)
 chmod 600 /etc/systemd/network/90-wg0.netdev
@@ -42,7 +42,7 @@ DHCP=yes
 EOF
 
 # Set ownership and permissions for the newly created wired network file
-chown systemd-network:systemd-network /etc/systemd/network/20-wired.network
+chown root:systemd-network /etc/systemd/network/20-wired.network
 chmod 644 /etc/systemd/network/20-wired.network
 
 # 6. Check for NetworkManager and configure if present
